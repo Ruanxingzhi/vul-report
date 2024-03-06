@@ -1,0 +1,19 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==1650310==ERROR: AddressSanitizer: SEGV on unknown address (pc 0x555555790102 bp 0x7fffffffd8f0 sp 0x7fffffffd7f0 T0)
+==1650310==The signal is caused by a READ memory access.
+==1650310==Hint: this fault was caused by a dereference of a high value address (see register values below).  Disassemble the provided pc to learn which register was used.
+CitrusTriage#0 pc=0x555555790102 [in rgbe_RGBEToFloat(tagFIRGBF*, unsigned char*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginHDR.cpp:176:15
+CitrusTriage#1 pc=0x55555578ff46 [in rgbe_ReadPixels(FreeImageIO*, void*, tagFIRGBF*, unsigned int)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginHDR.cpp:340:2
+CitrusTriage#2 pc=0x55555578ed48 [in rgbe_ReadPixels_RLE(FreeImageIO*, void*, tagFIRGBF*, int, unsigned int)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginHDR.cpp:373:10
+CitrusTriage#3 pc=0x55555578d10e [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginHDR.cpp:665:8
+CitrusTriage#4 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#5 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#6 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#7 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#8 pc=0x7ffff7a45784 [in __libc_start_main] at (/lib/x86_64-linux-gnu/libc.so.6+0x27784) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#9 pc=0x5555556576e0 [in _start] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x1036e0) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginHDR.cpp:176:15 in rgbe_RGBEToFloat(tagFIRGBF*, unsigned char*)
+==1650310==ABORTING

@@ -1,0 +1,63 @@
+=================================================================
+==1638926==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x612000000488 at pc 0x555555e6a9b6 bp 0x7fffffffd4b0 sp 0x7fffffffd4a8
+READ of size 4 at 0x612000000488 thread T0
+CitrusTriage#0 pc=0x555555e6a9b5 [in opj_j2k_read_mct] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibOpenJPEG/j2k.c:5133:33
+CitrusTriage#1 pc=0x555555e938b7 [in opj_j2k_read_header_procedure] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibOpenJPEG/j2k.c:6980:23
+CitrusTriage#2 pc=0x555555e7a178 [in opj_j2k_exec] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibOpenJPEG/j2k.c:7035:41
+CitrusTriage#3 pc=0x555555e79d9a [in opj_j2k_read_header] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibOpenJPEG/j2k.c:6567:15
+CitrusTriage#4 pc=0x555555aebc6f [in opj_read_header] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibOpenJPEG/openjpeg.c:387:10
+CitrusTriage#5 pc=0x55555579f06d [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginJ2K.cpp:169:9
+CitrusTriage#6 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#7 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#8 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#9 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#10 pc=0x7ffff7a45784 [in __libc_start_main] at (/lib/x86_64-linux-gnu/libc.so.6+0x27784) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#11 pc=0x5555556576e0 [in _start] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x1036e0) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+
+0x612000000488 is located 8 bytes after 320-byte region [0x612000000340,0x612000000480)
+allocated by thread T0 here:
+CitrusTriage#0 pc=0x5555556f2332 [in malloc] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x19e332) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+CitrusTriage#1 pc=0x555555e65f1a [in opj_j2k_read_siz] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibOpenJPEG/j2k.c:2193:42
+CitrusTriage#2 pc=0x555555e938b7 [in opj_j2k_read_header_procedure] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibOpenJPEG/j2k.c:6980:23
+CitrusTriage#3 pc=0x555555e7a178 [in opj_j2k_exec] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibOpenJPEG/j2k.c:7035:41
+CitrusTriage#4 pc=0x555555e79d9a [in opj_j2k_read_header] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibOpenJPEG/j2k.c:6567:15
+CitrusTriage#5 pc=0x555555aebc6f [in opj_read_header] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibOpenJPEG/openjpeg.c:387:10
+CitrusTriage#6 pc=0x55555579f06d [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginJ2K.cpp:169:9
+CitrusTriage#7 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#8 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#9 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#10 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibOpenJPEG/j2k.c:5133:33 in opj_j2k_read_mct
+Shadow bytes around the buggy address:
+  0x612000000200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x612000000280: 00 00 00 00 00 00 00 00 00 00 00 00 00 fa fa fa
+  0x612000000300: fa fa fa fa fa fa fa fa 00 00 00 00 00 00 00 00
+  0x612000000380: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x612000000400: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x612000000480: fa[fa]fa fa fa fa fa fa 00 00 00 00 00 00 00 00
+  0x612000000500: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x612000000580: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x612000000600: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x612000000680: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x612000000700: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==1638926==ABORTING

@@ -1,0 +1,22 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==1649767==ERROR: AddressSanitizer: SEGV on unknown address 0x630f00026a14 (pc 0x555555b485d1 bp 0x7fffffffc630 sp 0x7fffffffc540 T0)
+==1649767==The signal is caused by a WRITE memory access.
+CitrusTriage#0 pc=0x555555b485d1 [in void Imf_2_2::Xdr::read<Imf_2_2::CharPtrIO, char const*>(char const*&, float&)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmImf/ImfXdr.h:819:7
+CitrusTriage#1 pc=0x555555b3efa0 [in Imf_2_2::copyIntoFrameBuffer(char const*&, char*, char*, unsigned long, bool, double, Imf_2_2::Compressor::Format, Imf_2_2::PixelType, Imf_2_2::PixelType)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmImf/ImfMisc.cpp:463:21
+CitrusTriage#2 pc=0x555555ba82be [in Imf_2_2::(anonymous namespace)::LineBufferTask::execute()] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmImf/ImfScanLineInputFile.cpp:635:21
+CitrusTriage#3 pc=0x555555c09d31 [in IlmThread_2_2::ThreadPool::addTask(IlmThread_2_2::Task*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmThread/IlmThreadPool.cpp:433:15
+CitrusTriage#4 pc=0x555555c0a1ac [in IlmThread_2_2::ThreadPool::addGlobalTask(IlmThread_2_2::Task*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmThread/IlmThreadPool.cpp:479:24
+CitrusTriage#5 pc=0x555555b9f6ee [in Imf_2_2::ScanLineInputFile::readPixels(int, int)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmImf/ImfScanLineInputFile.cpp:1612:17
+CitrusTriage#6 pc=0x555555b34671 [in Imf_2_2::InputFile::readPixels(int, int)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmImf/ImfInputFile.cpp:815:23
+CitrusTriage#7 pc=0x55555576b994 [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginEXR.cpp:428:9
+CitrusTriage#8 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#9 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#10 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#11 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#12 pc=0x7ffff7a45784 [in __libc_start_main] at (/lib/x86_64-linux-gnu/libc.so.6+0x27784) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#13 pc=0x5555556576e0 [in _start] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x1036e0) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmImf/ImfXdr.h:819:7 in void Imf_2_2::Xdr::read<Imf_2_2::CharPtrIO, char const*>(char const*&, float&)
+==1649767==ABORTING

@@ -1,0 +1,67 @@
+=================================================================
+==1664960==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffff5e07520 at pc 0x55555567d22d bp 0x7fffffffd740 sp 0x7fffffffcee0
+WRITE of size 267 at 0x7ffff5e07520 thread T0
+CitrusTriage#0 pc=0x55555567d22c [in __interceptor_vsprintf] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x12922c) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+CitrusTriage#1 pc=0x55555567e437 [in sprintf] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x12a437) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+CitrusTriage#2 pc=0x55555581aa9a [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginXPM.cpp:281:7
+CitrusTriage#3 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#4 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#5 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#6 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#7 pc=0x7ffff7a45784 [in __libc_start_main] at (/lib/x86_64-linux-gnu/libc.so.6+0x27784) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#8 pc=0x5555556576e0 [in _start] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x1036e0) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+
+Address 0x7ffff5e07520 is located in stack of thread T0 at offset 288 in frame
+CitrusTriage#0 pc=0x555555818edf [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginXPM.cpp:157
+
+  This frame has 15 object(s):
+    [32, 288) 'msg' (line 158)
+    [352, 356) 'width' (line 177) <== Memory access at offset 288 partially underflows this variable
+    [368, 372) 'height' (line 177) <== Memory access at offset 288 partially underflows this variable
+    [384, 388) 'colors' (line 177) <== Memory access at offset 288 partially underflows this variable
+    [400, 404) 'cpp' (line 177) <== Memory access at offset 288 partially underflows this variable
+    [416, 464) 'rawpal' (line 196) <== Memory access at offset 288 partially underflows this variable
+    [496, 500) 'rgba' (line 198) <== Memory access at offset 288 partially underflows this variable
+    [512, 544) 'chrs' (line 204) <== Memory access at offset 288 partially underflows this variable
+    [576, 577) 'ref.tmp' (line 204)
+    [592, 596) 'red' (line 219)
+    [608, 612) 'green' (line 219)
+    [624, 628) 'blue' (line 219)
+    [640, 672) 'chrs203' (line 322)
+    [704, 705) 'ref.tmp205' (line 322)
+    [720, 724) 'rgba210' (line 323)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow (/work/programs/freeimage/analyze/bin/pure-work.asan+0x12922c) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4) in __interceptor_vsprintf
+Shadow bytes around the buggy address:
+  0x7ffff5e07280: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+  0x7ffff5e07300: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+  0x7ffff5e07380: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+  0x7ffff5e07400: f1 f1 f1 f1 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ffff5e07480: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7ffff5e07500: 00 00 00 00[f2]f2 f2 f2 f2 f2 f2 f2 04 f2 04 f2
+  0x7ffff5e07580: 04 f2 04 f2 00 00 00 00 00 00 f2 f2 f2 f2 04 f2
+  0x7ffff5e07600: 00 00 00 00 f2 f2 f2 f2 f8 f2 f8 f2 f8 f2 f8 f2
+  0x7ffff5e07680: f8 f8 f8 f8 f2 f2 f2 f2 f8 f2 f8 f3 00 00 00 00
+  0x7ffff5e07700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ffff5e07780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==1664960==ABORTING

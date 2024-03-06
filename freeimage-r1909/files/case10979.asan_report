@@ -1,0 +1,65 @@
+=================================================================
+==1668538==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000000492 at pc 0x555555673c55 bp 0x7fffffffc740 sp 0x7fffffffbee8
+READ of size 10 at 0x602000000492 thread T0
+CitrusTriage#0 pc=0x555555673c54 [in MemcmpInterceptorCommon(void*, int (*)(void const*, void const*, unsigned long), void const*, void const*, unsigned long)] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x11fc54) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+CitrusTriage#1 pc=0x55555567405d [in __interceptor_memcmp] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x12005d) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+CitrusTriage#2 pc=0x55555586fa74 [in processMakerNote(FIBITMAP*, char const*, int, unsigned int*, TagLib::MDMODEL*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/Metadata/Exif.cpp:321:16
+CitrusTriage#3 pc=0x55555586abc2 [in jpeg_read_exif_dir(FIBITMAP*, unsigned char const*, unsigned int, unsigned int, unsigned int, int, TagLib::MDMODEL)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/Metadata/Exif.cpp:719:6
+CitrusTriage#4 pc=0x5555558698de [in jpeg_read_exif_profile] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/Metadata/Exif.cpp:922:10
+CitrusTriage#5 pc=0x5555557abc58 [in read_markers(jpeg_decompress_struct*, FIBITMAP*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginJPEG.cpp:733:5
+CitrusTriage#6 pc=0x5555557a5624 [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginJPEG.cpp:1281:4
+CitrusTriage#7 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#8 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#9 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#10 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#11 pc=0x7ffff7a45784 [in __libc_start_main] at (/lib/x86_64-linux-gnu/libc.so.6+0x27784) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#12 pc=0x5555556576e0 [in _start] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x1036e0) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+
+0x602000000492 is located 0 bytes after 2-byte region [0x602000000490,0x602000000492)
+allocated by thread T0 here:
+CitrusTriage#0 pc=0x5555556f2332 [in malloc] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x19e332) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+CitrusTriage#1 pc=0x5555558897f2 [in FreeImage_CloneTag] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/Metadata/FreeImageTag.cpp:130:29
+CitrusTriage#2 pc=0x55555573711e [in FreeImage_SetMetadata] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/BitmapAccess.cpp:1403:21
+CitrusTriage#3 pc=0x55555587078e [in processExifTag(FIBITMAP*, FITAG*, char*, int, TagLib::MDMODEL)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/Metadata/Exif.cpp:555:4
+CitrusTriage#4 pc=0x55555586b118 [in jpeg_read_exif_dir(FIBITMAP*, unsigned char const*, unsigned int, unsigned int, unsigned int, int, TagLib::MDMODEL)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/Metadata/Exif.cpp:756:5
+CitrusTriage#5 pc=0x5555558698de [in jpeg_read_exif_profile] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/Metadata/Exif.cpp:922:10
+CitrusTriage#6 pc=0x5555557abc58 [in read_markers(jpeg_decompress_struct*, FIBITMAP*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginJPEG.cpp:733:5
+CitrusTriage#7 pc=0x5555557a5624 [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginJPEG.cpp:1281:4
+CitrusTriage#8 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#9 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#10 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#11 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow (/work/programs/freeimage/analyze/bin/pure-work.asan+0x11fc54) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4) in MemcmpInterceptorCommon(void*, int (*)(void const*, void const*, unsigned long), void const*, void const*, unsigned long)
+Shadow bytes around the buggy address:
+  0x602000000200: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fd
+  0x602000000280: fa fa fd fa fa fa fd fd fa fa fd fa fa fa fd fa
+  0x602000000300: fa fa fd fa fa fa fd fa fa fa fd fd fa fa fd fa
+  0x602000000380: fa fa fd fd fa fa fd fa fa fa fd fa fa fa fd fa
+  0x602000000400: fa fa fd fa fa fa fd fa fa fa 00 fa fa fa 06 fa
+=>0x602000000480: fa fa[02]fa fa fa fd fa fa fa fd fd fa fa fd fd
+  0x602000000500: fa fa fd fd fa fa fd fd fa fa fd fa fa fa fd fd
+  0x602000000580: fa fa fd fd fa fa fd fd fa fa fd fa fa fa fd fa
+  0x602000000600: fa fa fd fa fa fa fd fd fa fa 00 fa fa fa 00 02
+  0x602000000680: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fd
+  0x602000000700: fa fa 00 fa fa fa 00 03 fa fa 02 fa fa fa fd fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==1668538==ABORTING

@@ -1,0 +1,21 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==1660738==ERROR: AddressSanitizer: SEGV on unknown address 0x6230fffff0b4 (pc 0x7ffff7b78eed bp 0x000000000072 sp 0x7fffffffcaa8 T0)
+==1660738==The signal is caused by a WRITE memory access.
+CitrusTriage#0 pc=0x7ffff7b78eed [] at (/lib/x86_64-linux-gnu/libc.so.6+0x15aeed) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#1 pc=0x7ffff7a9de6d [] at (/lib/x86_64-linux-gnu/libc.so.6+0x7fe6d) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#2 pc=0x7ffff7a924ba [in _IO_fread] at (/lib/x86_64-linux-gnu/libc.so.6+0x744ba) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#3 pc=0x555555674f23 [in __interceptor_fread] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x120f23) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+CitrusTriage#4 pc=0x555555cf03bc [in _ReadProc(void*, unsigned int, unsigned int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/FreeImageIO.cpp:32:19
+CitrusTriage#5 pc=0x5555557e3184 [in ReadData(FreeImageIO*, void*, unsigned char*, unsigned int, int)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginRAS.cpp:127:3
+CitrusTriage#6 pc=0x5555557e1145 [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginRAS.cpp:379:6
+CitrusTriage#7 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#8 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#9 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#10 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#11 pc=0x7ffff7a45784 [in __libc_start_main] at (/lib/x86_64-linux-gnu/libc.so.6+0x27784) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#12 pc=0x5555556576e0 [in _start] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x1036e0) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV (/lib/x86_64-linux-gnu/libc.so.6+0x15aeed) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8) 
+==1660738==ABORTING

@@ -1,0 +1,66 @@
+=================================================================
+==1666129==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffff5db5f30 at pc 0x55555566e07d bp 0x7fffffffbe10 sp 0x7fffffffb5d8
+READ of size 257 at 0x7ffff5db5f30 thread T0
+CitrusTriage#0 pc=0x55555566e07c [in __interceptor_strlen] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x11a07c) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+CitrusTriage#1 pc=0x7ffff7d4b0c3 [in std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(char const*, std::allocator<char> const&)] at (/lib/x86_64-linux-gnu/libstdc++.so.6+0x14b0c3) (BuildId: 84cf24d2ad3307ffa25ee13f208cd31807c59c6a)
+CitrusTriage#2 pc=0x555555ff3f79 [in Imf_2_2::DwaCompressor::Classifier::Classifier(char const*&, int)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmImf/ImfDwaCompressor.cpp:271:23
+CitrusTriage#3 pc=0x555555f8ee4a [in Imf_2_2::DwaCompressor::uncompress(char const*, int, Imath_2_2::Box<Imath_2_2::Vec2<int>>, char const*&)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmImf/ImfDwaCompressor.cpp:2425:24
+CitrusTriage#4 pc=0x555555f8dfce [in Imf_2_2::DwaCompressor::uncompress(char const*, int, int, char const*&)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmImf/ImfDwaCompressor.cpp:2303:12
+CitrusTriage#5 pc=0x555555ba734f [in Imf_2_2::(anonymous namespace)::LineBufferTask::execute()] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmImf/ImfScanLineInputFile.cpp:540:66
+CitrusTriage#6 pc=0x555555c09d31 [in IlmThread_2_2::ThreadPool::addTask(IlmThread_2_2::Task*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmThread/IlmThreadPool.cpp:433:15
+CitrusTriage#7 pc=0x555555c0a1ac [in IlmThread_2_2::ThreadPool::addGlobalTask(IlmThread_2_2::Task*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmThread/IlmThreadPool.cpp:479:24
+CitrusTriage#8 pc=0x555555b9f6ee [in Imf_2_2::ScanLineInputFile::readPixels(int, int)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmImf/ImfScanLineInputFile.cpp:1612:17
+CitrusTriage#9 pc=0x555555b34671 [in Imf_2_2::InputFile::readPixels(int, int)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmImf/ImfInputFile.cpp:815:23
+CitrusTriage#10 pc=0x55555576b994 [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginEXR.cpp:428:9
+CitrusTriage#11 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#12 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#13 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#14 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#15 pc=0x7ffff7a45784 [in __libc_start_main] at (/lib/x86_64-linux-gnu/libc.so.6+0x27784) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#16 pc=0x5555556576e0 [in _start] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x1036e0) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+
+Address 0x7ffff5db5f30 is located in stack of thread T0 at offset 304 in frame
+CitrusTriage#0 pc=0x555555ff3b4f [in Imf_2_2::DwaCompressor::Classifier::Classifier(char const*&, int)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/OpenEXR/IlmImf/ImfDwaCompressor.cpp:262
+
+  This frame has 6 object(s):
+    [32, 36) 'size.addr'
+    [48, 304) 'suffix' (line 268)
+    [368, 372) 'ref.tmp' (line 270) <== Memory access at offset 304 partially underflows this variable
+    [384, 416) 'ref.tmp5' (line 271) <== Memory access at offset 304 partially underflows this variable
+    [448, 449) 'ref.tmp7' (line 271) <== Memory access at offset 304 partially underflows this variable
+    [464, 465) 'value' (line 278) <== Memory access at offset 304 partially underflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow (/work/programs/freeimage/analyze/bin/pure-work.asan+0x11a07c) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4) in __interceptor_strlen
+Shadow bytes around the buggy address:
+  0x7ffff5db5c80: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+  0x7ffff5db5d00: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+  0x7ffff5db5d80: f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5 f5
+  0x7ffff5db5e00: f1 f1 f1 f1 04 f2 00 00 00 00 00 00 00 00 00 00
+  0x7ffff5db5e80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7ffff5db5f00: 00 00 00 00 00 00[f2]f2 f2 f2 f2 f2 f2 f2 f8 f2
+  0x7ffff5db5f80: 00 00 00 00 f2 f2 f2 f2 01 f2 f8 f3 00 00 00 00
+  0x7ffff5db6000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ffff5db6080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ffff5db6100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7ffff5db6180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==1666129==ABORTING

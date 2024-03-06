@@ -1,0 +1,57 @@
+=================================================================
+==1664626==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000000030 at pc 0x5555557f6900 bp 0x7fffffffcf50 sp 0x7fffffffcf48
+READ of size 2 at 0x602000000030 thread T0
+CitrusTriage#0 pc=0x5555557f68ff [in void _assignPixel<16>(unsigned char*, unsigned char*, int)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTARGA.cpp:527:13
+CitrusTriage#1 pc=0x5555557f706f [in void loadRLE<16>(FIBITMAP*&, int, int, FreeImageIO*, void*, long, int)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTARGA.cpp:635:5
+CitrusTriage#2 pc=0x5555557f0eba [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTARGA.cpp:965:7
+CitrusTriage#3 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#4 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#5 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#6 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#7 pc=0x7ffff7a45784 [in __libc_start_main] at (/lib/x86_64-linux-gnu/libc.so.6+0x27784) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#8 pc=0x5555556576e0 [in _start] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x1036e0) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+
+0x602000000031 is located 0 bytes after 1-byte region [0x602000000030,0x602000000031)
+allocated by thread T0 here:
+CitrusTriage#0 pc=0x5555556f2332 [in malloc] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x19e332) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+CitrusTriage#1 pc=0x5555557faebd [in IOCache::IOCache(FreeImageIO*, void*, unsigned long)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTARGA.cpp:215:20
+CitrusTriage#2 pc=0x5555557f6ded [in void loadRLE<16>(FIBITMAP*&, int, int, FreeImageIO*, void*, long, int)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTARGA.cpp:599:10
+CitrusTriage#3 pc=0x5555557f0eba [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTARGA.cpp:965:7
+CitrusTriage#4 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#5 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#6 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#7 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTARGA.cpp:527:13 in void _assignPixel<16>(unsigned char*, unsigned char*, int)
+Shadow bytes around the buggy address:
+  0x601ffffffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x601ffffffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x601ffffffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x601fffffff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x601fffffff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x602000000000: fa fa 00 fa fa fa[01]fa fa fa fa fa fa fa fa fa
+  0x602000000080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x602000000100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x602000000180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x602000000200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x602000000280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==1664626==ABORTING

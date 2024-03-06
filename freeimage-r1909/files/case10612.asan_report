@@ -1,0 +1,85 @@
+=================================================================
+==1635990==ERROR: AddressSanitizer: heap-use-after-free on address 0x617000002000 at pc 0x5555556f1561 bp 0x7fffffffbb50 sp 0x7fffffffb318
+READ of size 672 at 0x617000002000 thread T0
+CitrusTriage#0 pc=0x5555556f1560 [in __asan_memcpy] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x19d560) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+CitrusTriage#1 pc=0x5555557337ec [in FreeImage_CreateICCProfile] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/BitmapAccess.cpp:1084:4
+CitrusTriage#2 pc=0x555555806696 [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTIFF.cpp:2324:3
+CitrusTriage#3 pc=0x555555809e3a [in ReadThumbnail(FreeImageIO*, void*, void*, tiff*, FIBITMAP*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTIFF.cpp:1366:18
+CitrusTriage#4 pc=0x5555558067b0 [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTIFF.cpp:2338:3
+CitrusTriage#5 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#6 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#7 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#8 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#9 pc=0x7ffff7a45784 [in __libc_start_main] at (/lib/x86_64-linux-gnu/libc.so.6+0x27784) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#10 pc=0x5555556576e0 [in _start] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x1036e0) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+
+0x617000002000 is located 0 bytes inside of 672-byte region [0x617000002000,0x6170000022a0)
+freed by thread T0 here:
+CitrusTriage#0 pc=0x5555556f208a [in __interceptor_free] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x19e08a) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+CitrusTriage#1 pc=0x5555557fcf14 [in _TIFFfree] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTIFF.cpp:229:2
+CitrusTriage#2 pc=0x555555a846e8 [in _TIFFfreeExt] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibTIFF4/tif_open.c:165:5
+CitrusTriage#3 pc=0x5555559d4b44 [in TIFFFreeDirectory] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibTIFF4/tif_dir.c:1647:13
+CitrusTriage#4 pc=0x5555559fc340 [in TIFFReadDirectory] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibTIFF4/tif_dirread.c:4180:5
+CitrusTriage#5 pc=0x5555559f44d3 [in TIFFSetDirectory] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibTIFF4/tif_dir.c:2103:13
+CitrusTriage#6 pc=0x55555580ae94 [in tiff_read_exif_profile(FreeImageIO*, void*, tiff*, FIBITMAP*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTIFF.cpp:858:3
+CitrusTriage#7 pc=0x555555809653 [in ReadMetadata(FreeImageIO*, void*, tiff*, FIBITMAP*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTIFF.cpp:880:2
+CitrusTriage#8 pc=0x5555558065fa [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTIFF.cpp:2320:3
+CitrusTriage#9 pc=0x555555809e3a [in ReadThumbnail(FreeImageIO*, void*, void*, tiff*, FIBITMAP*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTIFF.cpp:1366:18
+CitrusTriage#10 pc=0x5555558067b0 [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTIFF.cpp:2338:3
+CitrusTriage#11 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#12 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#13 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#14 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+
+previously allocated by thread T0 here:
+CitrusTriage#0 pc=0x5555556f2769 [in __interceptor_realloc] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x19e769) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+CitrusTriage#1 pc=0x5555557fcf3c [in _TIFFrealloc] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTIFF.cpp:234:9
+CitrusTriage#2 pc=0x555555a846b3 [in _TIFFreallocExt] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibTIFF4/tif_open.c:158:12
+CitrusTriage#3 pc=0x5555559cb678 [in _TIFFCheckRealloc] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibTIFF4/tif_aux.c:107:14
+CitrusTriage#4 pc=0x5555559cb720 [in _TIFFCheckMalloc] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibTIFF4/tif_aux.c:125:12
+CitrusTriage#5 pc=0x5555559e1c9b [in _TIFFVSetField] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibTIFF4/tif_dir.c:819:29
+CitrusTriage#6 pc=0x5555559d3223 [in TIFFVSetField] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibTIFF4/tif_dir.c:1208:18
+CitrusTriage#7 pc=0x5555559d312e [in TIFFSetField] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibTIFF4/tif_dir.c:1152:14
+CitrusTriage#8 pc=0x555555a0fb2f [in TIFFFetchNormalTag] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibTIFF4/tif_dirread.c:6926:21
+CitrusTriage#9 pc=0x5555559ff384 [in TIFFReadDirectory] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibTIFF4/tif_dirread.c:4617:27
+CitrusTriage#10 pc=0x5555559f48db [in TIFFSetSubDirectory] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibTIFF4/tif_dir.c:2144:14
+CitrusTriage#11 pc=0x555555809df7 [in ReadThumbnail(FreeImageIO*, void*, void*, tiff*, FIBITMAP*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTIFF.cpp:1362:8
+CitrusTriage#12 pc=0x5555558067b0 [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginTIFF.cpp:2338:3
+CitrusTriage#13 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#14 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#15 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#16 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+
+SUMMARY: AddressSanitizer: heap-use-after-free (/work/programs/freeimage/analyze/bin/pure-work.asan+0x19d560) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4) in __asan_memcpy
+Shadow bytes around the buggy address:
+  0x617000001d80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x617000001e00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x617000001e80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x617000001f00: fd fd fd fd fa fa fa fa fa fa fa fa fa fa fa fa
+  0x617000001f80: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x617000002000:[fd]fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x617000002080: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x617000002100: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x617000002180: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x617000002200: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x617000002280: fd fd fd fd fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==1635990==ABORTING

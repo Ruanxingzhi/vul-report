@@ -1,0 +1,30 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==1649934==ERROR: AddressSanitizer: SEGV on unknown address 0x61d100000061 (pc 0x7ffff7b78e49 bp 0x7fffffffbf70 sp 0x7fffffffb728 T0)
+==1649934==The signal is caused by a READ memory access.
+CitrusTriage#0 pc=0x7ffff7b78e49 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x15ae49) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#1 pc=0x5555556f1337 [in __asan_memcpy] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x19d337) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+CitrusTriage#2 pc=0x555555cf09eb [in _MemoryReadProc(void*, unsigned int, unsigned int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/FreeImageIO.cpp:96:4
+CitrusTriage#3 pc=0x5555557a2d28 [in fill_input_buffer(jpeg_decompress_struct*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginJPEG.cpp:283:18
+CitrusTriage#4 pc=0x5555558eb16b [in first_marker] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibJPEG/jdmarker.c:1065:3
+CitrusTriage#5 pc=0x5555558e72bc [in read_markers] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibJPEG/jdmarker.c:1098:8
+CitrusTriage#6 pc=0x5555558df861 [in consume_markers] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibJPEG/jdinput.c:569:11
+CitrusTriage#7 pc=0x5555558d5893 [in jpeg_consume_input] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibJPEG/jdapimin.c:305:15
+CitrusTriage#8 pc=0x5555558d553c [in jpeg_read_header] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/LibJPEG/jdapimin.c:253:13
+CitrusTriage#9 pc=0x5555557a41a7 [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginJPEG.cpp:1197:4
+CitrusTriage#10 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#11 pc=0x555555cf342b [in FreeImage_LoadFromMemory] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/MemoryIO.cpp:88:10
+CitrusTriage#12 pc=0x55555586b683 [in jpeg_read_exif_dir(FIBITMAP*, unsigned char const*, unsigned int, unsigned int, unsigned int, int, TagLib::MDMODEL)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/Metadata/Exif.cpp:844:24
+CitrusTriage#13 pc=0x55555586df49 [in psd_read_exif_profile] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/Metadata/Exif.cpp:1358:9
+CitrusTriage#14 pc=0x55555583fc9c [in psdParser::Load(FreeImageIO*, void*, int, int)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PSDParser.cpp:1998:4
+CitrusTriage#15 pc=0x5555557de059 [in Load(FreeImageIO*, void*, int, int, void*)] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/PluginPSD.cpp:117:26
+CitrusTriage#16 pc=0x55555574d258 [in FreeImage_LoadFromHandle] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:386:24
+CitrusTriage#17 pc=0x55555574d40a [in FreeImage_Load] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/Source/FreeImage/Plugin.cpp:406:22
+CitrusTriage#18 pc=0x55555573034a [in main] at /work/programs/freeimage/freeimage-svn/FreeImage/trunk/fuzz/work.cpp:9:25
+CitrusTriage#19 pc=0x7ffff7a456c9 [] at (/lib/x86_64-linux-gnu/libc.so.6+0x276c9) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#20 pc=0x7ffff7a45784 [in __libc_start_main] at (/lib/x86_64-linux-gnu/libc.so.6+0x27784) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8)
+CitrusTriage#21 pc=0x5555556576e0 [in _start] at (/work/programs/freeimage/analyze/bin/pure-work.asan+0x1036e0) (BuildId: 6cc57296c8d1b785633921754f3c58e27c42e3a4)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV (/lib/x86_64-linux-gnu/libc.so.6+0x15ae49) (BuildId: 8a1bf172e710f8ca0c1576912c057b45f90d90d8) 
+==1649934==ABORTING
